@@ -26,3 +26,9 @@ TestResults.xml
 expo-env.d.ts
 # @end expo-cli
 node_modules
+
+.expo
+expo
+/expo
+/.expo
+/*.expo
