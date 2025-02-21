@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "nativebase-expo-template",
-    "slug": "nativebase-expo-template",
+    "name": "ReactNativePaperBoilerplate",
+    "slug": "BoilerplateRNP",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -27,10 +27,12 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "newArchEnabled": true
   }
 }
