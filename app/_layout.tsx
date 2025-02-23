@@ -7,7 +7,7 @@ import "react-native-reanimated";
 import { useColorScheme, ToastAndroid } from "react-native";
 import { MD3DarkTheme, MD3LightTheme, PaperProvider } from "react-native-paper";
 import { Colors } from "@/constants/Colors";
-import * as Updates from "expo-updates";
+import { Header } from "@/components/header";
 // import "expo-dev-client";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -19,23 +19,6 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  useEffect(() => {
-    async function onFetchUpdateAsync() {
-      try {
-        const update = await Updates.checkForUpdateAsync();
-        if (update.isAvailable) {
-          await Updates.fetchUpdateAsync();
-          await Updates.reloadAsync();
-        }
-      } catch (error) {
-        ToastAndroid.show(
-          "Erreur lors de la récupération de la dernière mise à jour",
-          ToastAndroid.SHORT
-        );
-      }
-    }
-    onFetchUpdateAsync();
-  }, []);
 
   useEffect(() => {
     if (loaded) {
@@ -45,8 +28,8 @@ export default function RootLayout() {
 
   const paperTheme =
     colorScheme === "dark"
-      ? { ...MD3DarkTheme, colors: Colors.light }
-      : { ...MD3LightTheme, colors: Colors.dark };
+      ? { ...MD3DarkTheme, colors: Colors.dark }
+      : { ...MD3LightTheme, colors: Colors.light };
 
   if (!loaded) {
     return null;
@@ -57,7 +40,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(root)" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: true, header: () => <Header /> }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar />
