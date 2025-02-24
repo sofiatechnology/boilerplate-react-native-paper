@@ -1,22 +1,22 @@
 import { Text, View, Linking } from "react-native";
 import { Button } from "react-native-paper";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useState, useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet } from "react-native";
 
 export default function Home() {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  
+
   const data = useMemo(() => [
-    { title: 'Documentation', icon: 'book' },
+    { title: 'Documentation', icon: 'book-open-variant' },
     { title: 'View source', icon: 'code-tags' },
     { title: 'Report an issue', icon: 'bug' },
-    { title: 'Feedback', icon: 'message' },
-    { title: 'Give us a star on GitHub', icon: 'star' }
+    { title: 'Feedback', icon: 'android-messages' },
+    { title: 'Give us a star on GitHub', icon: 'star-outline' }
   ], []);
 
-  const snapPoints = useMemo(() => ['25%', '50%', '75%'], []);
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
 
   const handleSnapPress = useCallback((index: number) => {
     bottomSheetRef.current?.snapToIndex(index);
@@ -24,7 +24,7 @@ export default function Home() {
 
   const handleItemPress = useCallback((item: string) => {
     const repoBaseUrl = 'https://github.com/sofiatechnology/boilerplate-react-native-paper';
-    
+
     switch (item) {
       case 'Documentation':
         Linking.openURL(`${repoBaseUrl}#documentation`);
@@ -52,7 +52,6 @@ export default function Home() {
         onPress={() => handleItemPress(item.title)}
         style={styles.menuItem}
         contentStyle={styles.menuItemContent}
-        labelStyle={styles.menuItemLabel}
       >
         {item.title}
       </Button>
@@ -64,13 +63,12 @@ export default function Home() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text style={styles.title}>
-          React Native Bottom Sheet Demo
+          React Native Paper Boilerplate
         </Text>
-        <Button 
-          icon="arrow-up"
+        <Button
+          icon="code-tags"
           mode="contained"
           onPress={() => handleSnapPress(1)}
-          style={styles.button}
         >
           View Source
         </Button>
@@ -85,7 +83,6 @@ export default function Home() {
             data={data}
             keyExtractor={(item) => item.title}
             renderItem={renderItem}
-            contentContainerStyle={styles.contentContainer}
           />
         </BottomSheet>
       </View>
@@ -96,25 +93,19 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 40,
     padding: 24,
-    backgroundColor: '#f5f5f5',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-  },
-  contentContainer: {
-    backgroundColor: 'white',
+    textAlign: 'center',
   },
   itemContainer: {
     padding: 12,
     marginVertical: 4,
-    backgroundColor: '#f0f0f0',
     borderRadius: 8,
-  },
-  button: {
-    marginBottom: 10,
   },
   menuItem: {
     width: '100%',
@@ -123,10 +114,6 @@ const styles = StyleSheet.create({
   },
   menuItemContent: {
     justifyContent: 'flex-start',
-    paddingLeft: 16,
-  },
-  menuItemLabel: {
-    fontSize: 16,
-    marginLeft: 12,
-  },
+    paddingLeft: 24,
+  }
 });
